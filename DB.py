@@ -2,7 +2,7 @@ import psycopg2
 
 
 class DBManager:
-    def init(self, db_params):
+    def __init__(self, db_params):
         self.conn = psycopg2.connect(**db_params)
         self.cursor = self.conn.cursor()
 

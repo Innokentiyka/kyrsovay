@@ -1,6 +1,6 @@
 import psycopg2
 import requests
-from DB import psycopg2
+from DB import DBManager
 # Параметры подключения к базе данных
 DB_PARAMS = {
     'dbname': 'north',
@@ -9,6 +9,7 @@ DB_PARAMS = {
     'host': 'localhost'
 }
 
+db_manager = DBManager(DB_PARAMS)
 # API Endpoints
 COMPANY_API_ENDPOINT = "https://api.hh.ru/employers"
 VACANCY_API_ENDPOINT = "https://api.hh.ru/vacancies"
@@ -44,7 +45,7 @@ def main():
             insert_company(company_id, company['name'])
 
             # Получение вакансий компании
-            params = {"employer_id": company_id}
+            params = {'employer_id': company_id}
             vacancies = fetch_data(VACANCY_API_ENDPOINT, params)
 
             for vacancy in vacancies['items']:
